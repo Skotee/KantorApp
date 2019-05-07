@@ -1,0 +1,30 @@
+{
+  "parser": "babel-eslint",
+  "extends": ["standard"],
+  "plugins": ["babel", "promise", "node", "import"],
+  "env": {
+    "node": true,
+    "es6" : true
+  },
+  "rules": {
+    "key-spacing": 0,
+    "prefer-const": 1,
+    "max-len": ["error", { "code": 120, "ignoreComments": true, "ignoreTemplateLiterals": true }],
+    "no-var": 1,
+    "no-undef": 2,
+    "no-tabs": 0,
+    "semi": ["error", "never"],
+    "object-shorthand": [1, "always"],
+    "arrow-spacing": ["error", { "before": true, "after": true }],
+    "jsx-quotes": [2, "prefer-single"],
+    "object-curly-spacing": [2, "always"],
+    "curly": [1, "multi-line", "consistent"],
+    "newline-per-chained-call": ["error", { "ignoreChainWithDepth":  1 }],
+    "arrow-parens": [2, "as-needed"],
+    "comma-dangle": ["error", "never"],
+    "quotes": ["error", "single", { "avoidEscape": true, "allowTemplateLiterals": true }],
+    "space-before-function-paren": ["error", { "anonymous": "never", "named": "never", "asyncArrow": "always" }],
+    "no-multi-spaces": [1, { "exceptions": { "ImportDeclaration": true, "VariableDeclarator": true } }],
+    "yoda": ["error", "never"]
+  }
+}

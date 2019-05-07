@@ -1,0 +1,9 @@
+version: "3.0"
+services:
+  nod_dev_env:
+    build: .
+    container_name: meme-lib
+    ports:
+      - 8080:8080
+    volumes:
+      - ./:/home/app

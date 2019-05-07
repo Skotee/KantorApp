@@ -1,0 +1,15 @@
+import { Model } from 'objection'
+
+export default class Category extends Model {
+  static get tableName() {
+    return 'categories'
+  }
+
+  static get idColumn() {
+    return 'id'
+  }
+
+  static get categoryName() {
+    return 'name'
+  }
+}

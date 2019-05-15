@@ -10,7 +10,7 @@
     "lint": "prettier-eslint --write \"src/**/*.js\" \"server.js\" \"knex-cli/*.js\" \"knex-cli/**/*.js\" ",
     "migrate:latest": "knex --knexfile=knex-cli/knexfile.js migrate:latest",
     "migrate:rollback": "knex --knexfile=knex-cli/knexfile.js migrate:rollback",
-    "dupa": "node_modules/.bin/knex --knexfile=knex-cli/knexfile.js migrate:make meme"
+    "hello": "node_modules/.bin/knex --knexfile=knex-cli/knexfile.js migrate:make meme"
   },
   "keywords": [],
   "author": "",
@@ -34,7 +34,8 @@
     "knex": "^0.16.3",
     "morgan": "^1.9.1",
     "objection": "^1.6.2",
-    "pg": "^7.8.1"
+    "pg": "^7.10.0",
+    "ws": "^7.0.0"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.2",

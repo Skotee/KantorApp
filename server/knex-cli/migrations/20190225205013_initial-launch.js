@@ -18,12 +18,6 @@ exports.up = function(knex, Promise) {
 
     table.boolean('emailVerified')
       .default(false)
-
-    table.boolean('twoFacAuthEnabled')
-      .default(false)
-
-    table.string('twoFacAuthToken')
-      .notNull()
   })
 }
 

@@ -3,21 +3,22 @@ import MenuBar from './components/MenuBar'
 import WalletUser from './components/WalletUser'
 import WalletCantor from './components/WalletCantor'
 import './App.css';
+import Grid from '@material-ui/core/Grid';
+import SocketService from './services/SocketService';
+
+class App extends Component {
 
 
-export default class extends Component {
+
   render() {
     return <Fragment>
         <MenuBar/>
-        <WalletCantor/>
-        <WalletUser/>
+          <Grid container spacing = {24}>
+          <WalletCantor/>
+          <WalletUser/>
+        </Grid>
       </Fragment>
   }
 }
 
-// function App() {
-//   return (
-
-//   );
-// }
-
+export default App

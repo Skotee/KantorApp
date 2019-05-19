@@ -6,6 +6,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
+import DialogLogin from './DialogLogin'
 // import MenuIcon from '@material-ui/icons/Menu';
 
 const styles = {
@@ -32,7 +33,7 @@ function ButtonAppBar(props) {
           <Typography variant="h6" color="inherit" className={classes.grow}>
             Exchange
           </Typography>
-          <Button color="inherit">Login</Button>
+          <DialogLogin></DialogLogin>
         </Toolbar>
       </AppBar>
     </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -10,6 +10,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import DialogSell from './DialogSell'
+import { connect } from 'react-redux';
 
 const styles = theme => ({
   root: {
@@ -22,36 +23,18 @@ const styles = theme => ({
   },
 });
 
-let pln = 1500;
-
-let id = 0;
-function createData(name, unitprice, amount, value, actions) {
-  id += 1;
-  return { id, name, unitprice, amount, value, actions };
-}
-
-const rows = [
-  createData('GBP', 159, 6.0, 2, <DialogSell></DialogSell>),
-  createData('EUR', 237, 9.0, 2, <DialogSell></DialogSell>),
-  createData('USD', 262, 16.0, 2, <DialogSell></DialogSell>),
-  createData('CZK', 305, 3.7, 2, <DialogSell></DialogSell>),
-];
-
-function SimpleTable(props) {
-  const { classes } = props;
-
-  return (
+class WalletUser extends Component {
+render()
+{
+    console.log(this.props.messages);
+return (
       <Grid item xs={6}>
-      <Paper className={classes.root}>
-        <Table className={classes.table}>
+      <Paper>
+        <Table>
           <TableHead>
             <TableRow>
               <TableCell>
-                <Typography variant = "h5"
-                  color = "inherit"
-                  className = {classes.grow} >
-                My wallet
-                </Typography>
+                <Typography variant = "h5" color = "inherit">My wallet</Typography>
               </TableCell>
               <TableCell></TableCell>
               <TableCell></TableCell>
@@ -67,19 +50,17 @@ function SimpleTable(props) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map(row => (
+            {(this.props.messages.slice(0,5)).map(row => (
               <TableRow key={row.id}>
-                <TableCell component="th" scope="row">
-                  {row.name}
-                </TableCell>
-                <TableCell align="right">{row.unitprice}</TableCell>
-                <TableCell align="right">{row.amount}</TableCell>
-                <TableCell align="right">{row.value}</TableCell>
-                <TableCell align="right">{row.actions}</TableCell>
+                <TableCell component="th" scope="row">{row.Code}</TableCell>
+                <TableCell align="right">{row.SellPrice}</TableCell>
+                <TableCell align="right">{this.props.myCurrenciesAmount[2].Amount}</TableCell>
+                <TableCell align="right">{this.props.myCurrenciesValue[2].Value}</TableCell>
+                <TableCell align="right"><DialogSell id={row.id}></DialogSell></TableCell>
               </TableRow>
             ))}
              <TableRow>
-                Available PLN: {pln}
+              <TableCell><Typography variant="h6">Available PLN: {this.props.walletPLN}</Typography></TableCell>
               </TableRow>
             </TableBody>
         </Table>
@@ -87,9 +68,19 @@ function SimpleTable(props) {
       </Grid>
   );
 }
+}
 
-SimpleTable.propTypes = {
+WalletUser.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(SimpleTable);
+const mapStateToProps = (store) => {
+  return store;
+}
+
+const ConnectedWalletUser = connect(
+  mapStateToProps,
+  null
+)(WalletUser)
+
+export default withStyles(styles)(ConnectedWalletUser);

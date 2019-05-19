@@ -4,12 +4,8 @@ import WalletUser from './components/WalletUser'
 import WalletCantor from './components/WalletCantor'
 import './App.css';
 import Grid from '@material-ui/core/Grid';
-import SocketService from './services/SocketService';
 
 class App extends Component {
-
-
-
   render() {
     return <Fragment>
         <MenuBar/>

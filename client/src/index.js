@@ -6,8 +6,12 @@ import * as serviceWorker from './serviceWorker';
 import reducer from './store/reducer';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux'
+import configStore from './store/configStore'
+import { connect } from '@giantmachines/redux-websocket';
 
-const store = createStore(reducer);
+const store = configStore();
+
+store.dispatch(connect('ws://webtask.future-processing.com:8068/ws/currencies?format=json'))
 
 ReactDOM.render(<Provider store ={store}>< App /></Provider>, document.getElementById('root'));
 

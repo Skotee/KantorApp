@@ -8,7 +8,7 @@ const reduxWebsocketMiddleware = reduxWebsocket();
 
 // Create the Redux store.
 const store = (initialState) => (
-    createStore(reducer, initialState, applyMiddleware(apiMiddleware))
+    createStore(reducer, initialState, applyMiddleware(reduxWebsocketMiddleware, apiMiddleware))
 )
 
 export default store;

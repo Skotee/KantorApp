@@ -1,4 +1,4 @@
-import React ,{Component} from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -8,11 +8,9 @@ import TableHead from '@material-ui/core/TableHead';
 import Typography from '@material-ui/core/Typography';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import DialogBuy from './DialogBuy'
-// import web from '../services/SocketService';
-
+import { connect } from 'react-redux';
 
 const styles = theme => ({
   root: {
@@ -31,50 +29,25 @@ const styles = theme => ({
   },
 });
 
-let id = 0;
-function createData(currency, unit, value, actions) {
-  id += 1;
-  return { id, currency, unit, value, actions };
-}
-
-const rows = [
-  createData('siem', 159, 6.0, <DialogBuy></DialogBuy>),
-  createData('EUR', 237, 9.0, <Button variant="outlined" color="primary">BUY</Button>),
-  createData('USD', 262, 16.0, <Button variant="outlined" color="primary">BUY</Button>),
-  createData('CZK', 305, 3.7, <Button variant="outlined" color="primary">BUY</Button>),
-];
-
-// const Result = (props) => {
-//     const {averageprice, code, name, purchaseprice, sellprice, unit, date} = props.actual
-//     console.log(averageprice)
-// }
-
 class WalletCantor extends Component {
-  // const { classes } = props;
-  // const {averageprice, code, name, purchaseprice, sellprice, unit, date} = props.actual
-// state = {
-//   data: ''
-// };
-//   componentDidMount() {
-//     const data = web.getData();
 
-//     this.setState({
-//       data: data
-//     });
-//   }
-render(){
+  componentDidMount() {
+    console.log("UPDATE!");
+  }
+
+  render(){
+  if (!this.props.messages.length) return null
+
+  let dateToFormat = (this.props.messages[6]);
+  let date = dateToFormat.slice(0, 10);
+  let hour = dateToFormat.slice(11,19);
+
   return <Grid item xs={6}>
-      <Paper >
+      <Paper>
         <Table >
           <TableHead>
             <TableRow>
-              <TableCell>
-                <Typography variant = "h5"
-                  color = "inherit"
-                  >
-                    Currencies
-                </Typography>
-              </TableCell>
+              <TableCell><Typography variant="h5" color="inherit">Currencies</Typography></TableCell>
               <TableCell></TableCell>
               <TableCell></TableCell>
               <TableCell></TableCell>
@@ -82,31 +55,36 @@ render(){
             <TableRow>
               <TableCell>Currency</TableCell>
               <TableCell align="right">Unit</TableCell>
-              <TableCell align="right">Value</TableCell>
+              <TableCell align="right">Purchase value</TableCell>
               <TableCell align="right">Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map(row => (
+            {(this.props.messages.slice(0,5)).map(row => (
               <TableRow key={row.id}>
-                <TableCell component="th" scope="row">
-                  {row.currency}
-                </TableCell>
-                <TableCell align="right">{row.unit}</TableCell>
-                <TableCell align="right">{row.value}</TableCell>
-                <TableCell align="right">{row.actions}</TableCell>
+                <TableCell component="th" scope="row">{row.Code}</TableCell>
+                <TableCell align="right">{row.Unit}</TableCell>
+                <TableCell align="right">{row.PurchasePrice}</TableCell>
+                <TableCell align="right"><DialogBuy id={row.id}></DialogBuy></TableCell>
               </TableRow>
             ))}
+          <TableRow>
+            <TableCell><Typography variant="h6">Date of data collection: {date} <br></br> Time of data collection: {hour}</Typography></TableCell>
+          </TableRow>
           </TableBody>
         </Table>
       </Paper>
       </Grid>
+  }
 }
-    }
-
 
 WalletCantor.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(WalletCantor);
+const mapStateToProps = (store) => {
+  return store;
+}
+
+const ConnectedWalletCantor = connect(mapStateToProps,null)(WalletCantor)
+export default withStyles(styles)(ConnectedWalletCantor);

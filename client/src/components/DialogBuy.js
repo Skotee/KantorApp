@@ -6,11 +6,24 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { connect } from 'react-redux';
+import { buy } from "../actions/actions";
 
-export default class FormDialog extends React.Component {
-  state = {
-    open: false,
+class DialogBuy extends React.Component {
+
+    state = {
+      open: false,
+      input: '',
+    };
+
+  handleBuy = () => {
+    buy();
+    this.setState({ open: false });
   };
+
+  addTodo = (e) => {
+    this.props.addTodo(this.state.input);
+  }
 
   handleClickOpen = () => {
     this.setState({ open: true });
@@ -19,6 +32,13 @@ export default class FormDialog extends React.Component {
   handleClose = () => {
     this.setState({ open: false });
   };
+
+  handleInputChange = (e) => {
+      e.preventDefault();
+      this.setState({
+          input: e.target.value
+      })
+  }
 
   render() {
     return (
@@ -43,18 +63,27 @@ export default class FormDialog extends React.Component {
               label="How much"
               type="number"
               fullWidth
+              onChange={ this.handleInputChange }
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
-              Cancel
-            </Button>
-            <Button onClick={this.handleClose} color="primary">
-              Buy
-            </Button>
+            <Button onClick={this.handleClose} color="primary">Cancel</Button>
+            <Button onClick={this.handleBuy} color="primary">Buy</Button>
           </DialogActions>
         </Dialog>
       </div>
     );
   }
 }
+
+const mapStateToProps = (store) => {
+  return store;
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    buy: (input) => dispatch(buy(input)),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DialogBuy);
